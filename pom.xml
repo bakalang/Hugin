@@ -17,6 +17,7 @@
       <dropwizard-webjars.version>0.2.1</dropwizard-webjars.version>
        <dropwizard-jobs-core.version>1.0.1</dropwizard-jobs-core.version>
       <jquery.version>2.1.1</jquery.version>
+      <!--<angular.version>1.5.0</angular.version>-->
       <junit.version>4.12</junit.version>
    </properties>
 
@@ -55,6 +56,10 @@
          <groupId>org.webjars</groupId>
          <artifactId>jquery</artifactId>
       </dependency>
+       <dependency>
+           <groupId>org.webjars</groupId>
+           <artifactId>angularjs</artifactId>
+       </dependency>
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
@@ -103,6 +108,11 @@
             <artifactId>jquery</artifactId>
             <version>${jquery.version}</version>
          </dependency>
+          <dependency>
+              <groupId>org.webjars</groupId>
+              <artifactId>angularjs</artifactId>
+              <version>1.5.0-rc.0</version>
+          </dependency>
          <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

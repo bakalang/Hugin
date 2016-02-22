@@ -20,6 +20,7 @@ public class AppService extends Application<Configuration> {
    public void initialize(Bootstrap<Configuration> bootstrap) {
       bootstrap.addBundle(new JobsBundle("skyee.scheduler"));
       bootstrap.addBundle(new WebJarBundle());
+      bootstrap.addBundle(new WebJarBundle());
       bootstrap.addBundle(new AssetsBundle("/web", "/web", "index.html", "web"));
    }
 

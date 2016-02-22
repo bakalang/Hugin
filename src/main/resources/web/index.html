@@ -14,7 +14,7 @@
       }
    </style>
 </head>
-<body>
+<body ng-app="myapp">
 
 <label for="time">Now:</label>
 <input type="text" id="time" disabled/>
@@ -30,6 +30,10 @@
 <button id="disconnectBtn">Disconnect</button>
 
 <script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/angularjs/angular.min.js"></script>
+<!--<script src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>-->
+
+<script src="components/ng-websocket-0.2.1/ng-websocket.js"></script>
 <script src="js/main.js"></script>
 
 </body>
