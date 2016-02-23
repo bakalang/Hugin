@@ -1,0 +1,8 @@
+.status {
+     border-radius: 5px;
+     height: 200px;
+     width: 90%;
+     padding: 5px;
+     background-color: #AAA;
+     overflow: scroll;
+}

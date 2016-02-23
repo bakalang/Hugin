@@ -38,6 +38,7 @@ public class BroadcastSocket extends WebSocketAdapter {
    @Override
    public void onWebSocketText(String message) {
       log.info("Got text {} from {}", message, Integer.toHexString(getSession().hashCode()));
+       this.broadcast(getSession().hashCode()+" : "+message);
    }
 
    public static void broadcast(String msg) {

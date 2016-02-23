@@ -2,54 +2,54 @@
 //
 //(function (dwws, $) {
 "use strict";
-
-var app = angular.module('myapp', ['ngWebsocket']);
-app.factory('ws', function ($websocket) {
-    var ws = $websocket.$new('ws://192.168.100.121:8080/ws/');
-
-//    var atp = [];
-
-    //onMessage
-    ws.onMessage(function (event) {
-        console.log('Got rs: ', event.data);
-        var response = angular.fromJson(event.data);
-        if(null != response.message){
-            $status.prepend("<p>" + response.message + "</p>");
-        }
-        if(null != response.datetime){
-            $time.val(response.datetime);
-        }
-    };
-
-    //onError
-    ws.onError(function (event) {
-        console.log('connection Error', event);
-    }
-
-    //onClose
-    ws.onClose(function (event) {
-        console.log('connection closed', event);
-    }
-
-    //onOpen
-    ws.onOpen(function () {
-        console.log('connection open');
-        ws.send('HELLO SERVER');
-    }
-
-    return {
-        send: function (message) {
-            ws.send(message);
-        }
-    }
-});
-
-app.controller('atpController', function ($scope, ATP) {
-
-});
-
-
-
+//
+//var app = angular.module('myapp', ['ngWebsocket']);
+//app.factory('ws', function ($websocket) {
+//    var ws = $websocket.$new('ws://192.168.100.121:8080/ws/');
+//
+////    var atp = [];
+//
+//    //onMessage
+//    ws.onMessage(function (event) {
+//        console.log('Got rs: ', event.data);
+//        var response = angular.fromJson(event.data);
+//        if(null != response.message){
+//            $status.prepend("<p>" + response.message + "</p>");
+//        }
+//        if(null != response.datetime){
+//            $time.val(response.datetime);
+//        }
+//    };
+//
+//    //onError
+//    ws.onError(function (event) {
+//        console.log('connection Error', event);
+//    }
+//
+//    //onClose
+//    ws.onClose(function (event) {
+//        console.log('connection closed', event);
+//    }
+//
+//    //onOpen
+//    ws.onOpen(function () {
+//        console.log('connection open');
+//        ws.send('HELLO SERVER');
+//    }
+//
+//    return {
+//        send: function (message) {
+//            ws.send(message);
+//        }
+//    }
+//});
+//
+//app.controller('atpController', function ($scope, ATP) {
+//
+//});
+//
+//
+//
 
 var $status = $("#status");
 var $time = $("#time");

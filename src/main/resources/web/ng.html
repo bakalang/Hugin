@@ -3,18 +3,9 @@
 <head lang="en">
    <meta charset="UTF-8">
    <title>Dropwizard Websockets Example</title>
-   <style>
-      .status {
-         border-radius: 5px;
-         height: 200px;
-         width: 90%;
-         padding: 5px;
-         background-color: #AAA;
-         overflow: scroll;
-      }
-   </style>
+   <link rel="stylesheet" href="page.css"/>
 </head>
-<body ng-app="myapp">
+<body ng-app="WS_APP" ng-controller="WS_CTRL">
 
 <label for="time">Now:</label>
 <input type="text" id="time" disabled/>
@@ -24,17 +15,33 @@
 
 <label for="msg">Message:</label>
 <input type="text" id="msg"/>
-<button id="sendBtn">Send</button>
-<button id="broadcastBtn">Broadcast</button>
+<!--<button id="sendBtn">Send</button>-->
+<form ng-submit="broadcast()">
+    <button id="broadcastBtn">Broadcast</button>
+</form>
 <button id="connectBtn">Connect</button>
 <button id="disconnectBtn">Disconnect</button>
 
+
+<table>
+   <thead>
+      <tr>
+          <th>ip</th>
+          <th>session</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr ng-repeat="item in SList.slist">
+         <td>{{item.ip}}</td>
+         <td>{{item.session}}</td>
+      </tr>
+   </tbody>
+</table>
+
 <script src="/webjars/jquery/jquery.min.js"></script>
 <script src="/webjars/angularjs/angular.min.js"></script>
-<!--<script src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>-->
-
 <script src="components/ng-websocket-0.2.1/ng-websocket.js"></script>
-<script src="js/main.js"></script>
+<script src="js/ng.js"></script>
 
 </body>
 </html>

@@ -21,7 +21,7 @@ public class AppService extends Application<Configuration> {
       bootstrap.addBundle(new JobsBundle("skyee.scheduler"));
       bootstrap.addBundle(new WebJarBundle());
       bootstrap.addBundle(new WebJarBundle());
-      bootstrap.addBundle(new AssetsBundle("/web", "/web", "index.html", "web"));
+      bootstrap.addBundle(new AssetsBundle("/web", "/web", "normal.html", "web"));
    }
 
    @Override
