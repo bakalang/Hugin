@@ -17,17 +17,11 @@ public class BroadcasterResource {
       this.mapper = mapper;
    }
 
-//   @POST
-//   @Consumes("application/json")
-//   public void broadcast(Object data) throws Exception {
-//      BroadcastSocket.broadcast(objectMapper.writeValueAsString(data));
-//   }
-
    @POST
    @Consumes("text/plain")
    public void broadcastString(String data) throws Exception {
-      Resopnse rs = new Resopnse();
-      rs.setMessage(data);
-      BroadcastSocket.broadcast(mapper.writeValueAsString(rs));
+//      Resopnse rs = new Resopnse();
+//      rs.setMessage(data);
+      BroadcastSocket.broadcast(new Resopnse("message", data).returnResponse());
    }
 }

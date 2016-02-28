@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-   <meta charset="UTF-8">
-   <title>Dropwizard Websockets Example</title>
-   <link rel="stylesheet" href="page.css"/>
+    <meta charset="UTF-8">
+    <title>Dropwizard Websockets Example</title>
+    <link rel="stylesheet" href="page.css"/>
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="components/angularjs/angular.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>-->
+    <!--<script src="components/angular-websocket/angular-websocket.js"></script>-->
+    <script src="components/ng-websocket/ng-websocket.js"></script>
+    <script src="js/ng.js"></script>
+
 </head>
-<body ng-app="WS_APP" ng-controller="WS_CTRL">
+<body ng-app="WS_APP" ng-controller="WS_CTRL" class="ng-cloak">
 
-<label for="time">Now:</label>
-<input type="text" id="time" disabled/>
-<div id="status" class="status">Ready to connect.</div>
+    <span ng-bind="WS.datetime"></span>
+    <span ng-bind="WS.datetime.val"></span>
+    <!--<span ng-bind="WS.datetime"></span>-->
 
-<h2>Test-controls</h2>
+    <!--<input type="text" id="time" disabled/>-->
+    <div id="status" class="status">Ready to connect.</div>
 
-<label for="msg">Message:</label>
-<input type="text" id="msg"/>
-<!--<button id="sendBtn">Send</button>-->
-<form ng-submit="broadcast()">
-    <button id="broadcastBtn">Broadcast</button>
-</form>
-<button id="connectBtn">Connect</button>
-<button id="disconnectBtn">Disconnect</button>
+    <h2>Test-controls</h2>
+
+    <label for="msg">Message:</label>
+    <input type="text" id="msg"/>
+    <button id="eventABtn" ng-click="eventA()">eventA</button>
+    <button id="eventBBtn" ng-click="eventB()">eventB</button>
+    <button id="disconnectBtn">Disconnect</button>
 
 
-<table>
-   <thead>
-      <tr>
-          <th>ip</th>
-          <th>session</th>
-      </tr>
-   </thead>
-   <tbody>
-      <tr ng-repeat="item in SList.slist">
-         <td>{{item.ip}}</td>
-         <td>{{item.session}}</td>
-      </tr>
-   </tbody>
-</table>
-
-<script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/angularjs/angular.min.js"></script>
-<script src="components/ng-websocket-0.2.1/ng-websocket.js"></script>
-<script src="js/ng.js"></script>
-
+    <span ng-bind="WS.slist.length"></span>
+    <table>
+       <thead>
+          <tr>
+              <th>ip</th>
+              <th>session</th>
+          </tr>
+       </thead>
+       <tbody>
+          <tr ng-repeat="item in WS.slist">
+             <td>{{item.ip}}</td>
+             <td>{{item.session}}</td>
+          </tr>
+       </tbody>
+    </table>
 </body>
 </html>
