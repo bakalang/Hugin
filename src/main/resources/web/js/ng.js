@@ -1,57 +1,38 @@
-//"use strict";
+var app = angular.module('WS_APP', []);
 
-var app = angular.module('WS_APP', ['ngWebsocket']);
+app.controller('WS_CTRL', ['$scope', '$timeout', 'websocketService', function($scope, $timeout, websocketService) {
 
-app.factory('WS_server', function($websocket){
-    // open connection
-    console.log('open connection');
-    var ws = $websocket.$new({'url': 'ws://192.168.100.121:8080/ws/', 'protocols':[], 'subprotocols': ['base46']} );
-    var slist =[];
-    var datetime;
-//    var rs;
+	$scope.users = [];
+	$scope.messages = [];
+    $scope.alias = '';
+    $scope.message = '';
+    $scope.isLogged = false;
 
-    ws.$on('$error', function (event) {
-        console.log('connection Error', event);
-    });
-    ws.$on('$close',function (event) {
-        console.log('connection closed', event);
-    });
-    ws.$on('$open', function () {
-            ws.$emit('ws connect', 'hi server!');
-    });
-    ws.$on('$message', function (message) {
-        rs = JSON.parse(message);
-        if(rs.wssessions.length >0 ){
-//            slist = [];
-            console.log("log", rs.wssessions.length);
-            for (var i = 0; i < rs.wssessions.length; i++) {
-                slist.push({
-                    ip: rs.wssessions[i].ip,
-                    session: rs.wssessions[i].name
-                });
-            }
-            console.log('slist length: ', slist.length);
-//            aaaa = '111';
-//            console.log('1datetime', aaaa);
-        }
-        if(null != rs.datetime){
-            datetime = rs.datetime;
-            console.log('2datetime', datetime);
-        }
-//        if('message' == rs.event){
-//            $status.prepend("<p>" + rs.message + "</p>");
-//        }
+    $scope.$on('websocket', function(e, type, data) {
+		if (type === 'users')
+			$scope.users = data;
+		else
+			$scope.messages = data;
     });
 
-    return {
-        datetime: datetime,
-//        rs: rs,
-        slist: slist,
-        send: function (event) {
-            ws.$emit('ws input', $("#msg").val());
-        }
-    };
-});
+	$scope.login = function() {
+		websocketService.login('ws://192.168.100.121:8080/ws/', $scope.alias);
+		$scope.isLogged = true;
+	};
+
+	$scope.logoff = function() {
+		websocketService.logoff();
+		$scope.alias = '';
+		$scope.isLogged = false;
+		$scope.message = '';
+	};
+
+	$scope.send = function() {
+		websocketService.send($scope.message);
+		$scope.message = '';
+	};
+
+}]);
 
 app.controller('WS_CTRL', function($scope, WS_server){
     $scope.WS = WS_server;
@@ -61,7 +42,4 @@ app.controller('WS_CTRL', function($scope, WS_server){
     $scope.eventB = function(){
         WS_server.send('eventB');
     };
-//    $scope.bindtime = function(){
-//        return 'now: '+WS_server.datetime;
-//    };
 });

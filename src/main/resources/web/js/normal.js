@@ -10,19 +10,19 @@ function connectSocket() {
 
      socket.onopen = function() {
         console.log("Connected!");
-        $status.prepend("<p>Connected websocket!</p>");
+        $message.prepend("<p>Connected websocket!</p>");
      };
 
      socket.onclose = function() {
         console.log("Closed!");
-        $status.prepend("<p>Closed websocket</p>");
+        $message.prepend("<p>Closed websocket</p>");
      };
 
      socket.onmessage = function(msg) {
         var rs = JSON.parse(msg.data);
         console.log("Got rs ", rs, this);
         if(null != rs.message){
-            $status.prepend("<p>" + rs.message + "</p>");
+            $message.prepend("<p>" + rs.message + "</p>");
         }
         if(null != rs.datetime){
             $time.val(rs.datetime);

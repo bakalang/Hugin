@@ -49,10 +49,11 @@ public class BroadcastSocket extends WebSocketAdapter {
    @Override
    public void onWebSocketText(String message) {
        try {
-           Map<String, Object> returnMap = mapper.readValue(message, new TypeReference<Map<String, Object>>()
-           {});
-           log.info("receive form {}, event: {}, data: {}", Integer.toHexString(getSession().hashCode()), returnMap.get("event"), returnMap.get("data"));
-           this.broadcast(new Resopnse("message", String.valueOf(returnMap.get("data"))).returnResponse());
+//           Map<String, Object> returnMap = mapper.readValue(message, new TypeReference<Map<String, Object>>()
+//           {});
+//           log.info("receive form {}, event: {}, data: {}", Integer.toHexString(getSession().hashCode()), returnMap.get("event"), returnMap.get("data"));
+
+           this.broadcast(new Resopnse("message", message).returnResponse());
        } catch (IOException e) {
            e.printStackTrace();
        }
