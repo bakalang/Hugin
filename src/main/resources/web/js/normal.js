@@ -1,12 +1,12 @@
 "use strict";
 
-var $status = $("#status");
+var $message = $("#message");
 var $time = $("#time");
 var socket = null;
 
 function connectSocket() {
   if(socket == null) {
-     socket = new WebSocket("ws://192.168.100.121:8080/ws/");
+     socket = new WebSocket("ws://localhost:8080/ws/");
 
      socket.onopen = function() {
         console.log("Connected!");
@@ -55,4 +55,3 @@ $("#disconnectBtn").click(function() {
      socket = null;
   }
 });
-//}(dwws, jQuery));

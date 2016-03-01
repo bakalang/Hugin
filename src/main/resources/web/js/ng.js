@@ -1,45 +1,47 @@
-var app = angular.module('WS_APP', []);
+var $message = $("#message");
 
-app.controller('WS_CTRL', ['$scope', '$timeout', 'websocketService', function($scope, $timeout, websocketService) {
+var app = angular.module("WS_APP", []);
 
-	$scope.users = [];
-	$scope.messages = [];
-    $scope.alias = '';
-    $scope.message = '';
-    $scope.isLogged = false;
+app.controller("WS_CTRL", ["$scope", function($scope){
 
-    $scope.$on('websocket', function(e, type, data) {
-		if (type === 'users')
-			$scope.users = data;
-		else
-			$scope.messages = data;
-    });
+    var conn = new WebSocket("ws://localhost:8080/ws/");
 
-	$scope.login = function() {
-		websocketService.login('ws://192.168.100.121:8080/ws/', $scope.alias);
-		$scope.isLogged = true;
-	};
+    conn.onclose = function(e){
+        $scope.$apply(function(){
+            $message.push("DISCONNECTED");
+        })
+    }
 
-	$scope.logoff = function() {
-		websocketService.logoff();
-		$scope.alias = '';
-		$scope.isLogged = false;
-		$scope.message = '';
-	};
+    conn.onopen = function(e){
+        $scope.$apply(function(){
+            $message.push("CONNECTED");
+        })
+    }
 
-	$scope.send = function() {
-		websocketService.send($scope.message);
-		$scope.message = '';
-	};
+    conn.onmessage = function(e){
+        $scope.$apply(function(){
+            var rs = JSON.parse(e.data);
+            if(null != rs.message){
+                var element1 = angular.element("<p>"+rs.message+"</p>");
+                $message.prepend(element1);
+            }
+            if(null != rs.datetime){
+                $scope.time =rs.datetime;
+            }
+            if(rs.wssessions.length >0 ){
+                $scope.slist = [];
+                console.log("log", rs.wssessions.length);
+                for (var i = 0; i < rs.wssessions.length; i++) {
+                    $scope.slist.push({
+                        ip: rs.wssessions[i].ip,
+                        session: rs.wssessions[i].name
+                    });
+                }
+            }
+        })
+    }
 
+    $scope.send = function(e){
+        conn.send($scope.msg);
+    }
 }]);
-
-app.controller('WS_CTRL', function($scope, WS_server){
-    $scope.WS = WS_server;
-    $scope.eventA = function(){
-        WS_server.send('eventA');
-    };
-    $scope.eventB = function(){
-        WS_server.send('eventB');
-    };
-});

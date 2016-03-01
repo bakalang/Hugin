@@ -7,56 +7,31 @@
 
 </head>
 <body ng-controller="WS_CTRL" class="ng-cloak">
-    <!--<ul>-->
-        <!--<li ng-repeat="m in message">{{m}}</li>-->
-    <!--</ul>-->
-    <div id="message" class="message">
-        <!--<p ng-repeat="m in message">{{m}}</p>-->
-    </div>
+    <div id="message" class="message"></div>
 
-    <!--<label for="msg">Message:</label>-->
+    <label >Message:</label>
     <input type="text" ng-model="msg" />
-    <!--<button id="loginBtn" ng-click="login()">login</button>-->
     <button id="sendBtn" ng-click="send()">send</button>
     <button id="disconnectBtn">Disconnect</button>
+    <input type="text" ng-model="time" disabled/>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ip</th>
+                <th>session</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in slist">
+                <td>{{item.ip}}</td>
+                <td>{{item.session}}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="components/angularjs/angular.js"></script>
-    <!--<script src="components/ng-websocket/ng-websocket.js"></script>-->
-    <!--<script src="js/ng.js"></script>-->
-    <script>
-        var app = angular.module("WS_APP", []);
-        app.controller("WS_CTRL", ["$scope", function($scope){
-
-            $scope.message = [];
-
-            var conn = new WebSocket("ws://192.168.100.121:8080/ws/");
-
-            conn.onclose = function(e){
-                $scope.$apply(function(){
-                    $scope.message.push("DISCONNECTED");
-                })
-            }
-
-            conn.onopen = function(e){
-                $scope.$apply(function(){
-                    $scope.message.push("CONNECTED");
-                })
-            }
-
-            conn.onmessage = function(e){
-                $scope.$apply(function(){
-                    var element1 = angular.element("<p>"+e.data+"</p>");
-                    <!--$scope.message.push(e.data);-->
-                    $("#message").prepend(element1);
-                })
-            }
-
-            $scope.send = function(e){
-                conn.send($scope.msg);
-            }
-        }]);
-
-    </script>
+    <script src="js/ng.js"></script>
 </body>
 </html>
